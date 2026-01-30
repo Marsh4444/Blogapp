@@ -67,3 +67,15 @@ h1, h2, h3, h4, h5, h6 {
 .blog-footer p:last-child {
   margin-bottom: 0;
 }
+
+.post-title-link {
+    color: #333;        /* dark neutral */
+    text-decoration: none;
+}
+
+.post-title-link:hover {
+    color: #667eea;     /* soft accent on hover */
+}
+.post-title-link:focus {
+    color: #667eea;     /* soft accent on focus */
+} 
