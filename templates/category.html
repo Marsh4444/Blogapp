@@ -1,14 +1,68 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category</title>
+    <title>{{ category.name }} | Django Blog</title>
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'css/blo.css' %}" rel="stylesheet">
 </head>
 <body>
-    {% for post in posts %}
-        <h2>{{ post.title }}</h2>
-        <p>{{ post.content }}</p>
-    {% endfor %}
+
+<div class="container">
+
+    <!-- Header -->
+    <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col-8 pt-1">
+                <a class="blog-header-logo text-dark" href="/">Django Blog</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Category Title -->
+    <h2 class="pb-3 mb-4 font-italic border-bottom text-warning" style="letter-spacing:2px;">
+        Category: {{ category }}
+    </h2>
+
+    <!-- Posts in Category -->
+    {% if posts %}
+        {% for post in posts %}
+        <div class="card border-0 mb-3">
+            <div class="card-body">
+                <a href="#" class="post-title-link" style="color:#333;">
+                    <h3>{{ post.title }}</h3>
+                </a>
+                <small class="text-muted">
+                    {{ post.created_at|timesince }} ago |
+                    by {{ post.author }} |
+                    {{ post.category }}
+                </small>
+                <p class="card-text mt-2">
+                    {{ post.short_desc|truncatewords:15 }}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+            <p class="text-muted">No posts in this category yet.</p>
+        {% endif %}
+    {% comment %}<!-- {% else %}
+        {% if category == "Unknown Category" %}
+            <p class="text-danger">The category you are looking for does not exist.</p>
+        {% else %}
+            <p class="text-muted">No posts in this category yet.</p>
+        {% endif %}
+    {% endif %} -->
+    {% endcomment %}
+    
+
+</div>
+
+<footer class="blog-footer text-center mt-5">
+    <p>Django blog built with ❤️ by <strong>Nwadike Holyfield</strong></p>
+</footer>
+
 </body>
 </html>
