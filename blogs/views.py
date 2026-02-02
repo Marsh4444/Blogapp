@@ -1,3 +1,4 @@
+from webbrowser import get
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .models import Blog, Category
@@ -21,3 +22,10 @@ def posts_by_category(request, category_id):
         'category': category,
     }
     return render(request, 'category.html', context)
+
+def blogs(request, blog_slug):
+    single_post = get_object_or_404(Blog, slug=blog_slug, status='published')
+    context = {
+        'single_post':single_post
+    }
+    return render(request, 'blogs.html', context)

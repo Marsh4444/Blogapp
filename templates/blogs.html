@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+  <div class="row">
+    <div class="col-md-8">
+
+      <!-- Post Title -->
+      <h1 class="font-italic mb-2">{{ single_post.title }}</h1>
+
+      <!-- Meta info -->
+      <p class="text-muted">
+        {{ single_post.created_at|date:"F d, Y" }} •
+        by {{ single_post.author }} •
+        <span class="text-warning">{{ single_post.category }}</span>
+      </p>
+
+      <!-- Short Description -->
+      <p class="lead text-secondary mb-4">
+        {{ single_post.short_desc }}
+      </p>
+
+      <!-- Featured Image -->
+      {% if single_post.featured_image %}
+        <img 
+          src="{{ single_post.featured_image.url }}" 
+          class="img-fluid rounded mb-4"
+          alt="{{ single_post.title }}"
+        >
+      {% endif %}
+
+      <!-- Blog body -->
+      <div class="post-content">
+        {{ single_post.blog_body|linebreaks }}
+      </div>
+
+    </div>
+
+    <!-- Sidebar -->
+  <aside class="col-md-4">
+
+  <!-- Search -->
+  <div class="p-3 mb-4 bg-light rounded">
+    <h4 class="font-italic">Search</h4>
+    <form method="get" action="#">
+      <div class="input-group">
+        <input 
+          type="text" 
+          name="q" 
+          class="form-control"
+          placeholder="Search posts..."
+          required
+        >
+        <div class="input-group-append">
+          <button class="btn btn-warning" type="submit">Go</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Categories -->
+  <div class="p-3 mb-4 bg-light rounded">
+    <h4 class="font-italic">Categories</h4>
+    <ol class="list-unstyled mb-0">
+      {% for categorie in categories %}
+        <li>
+          <a 
+            href="{% url 'posts_by_category' categorie.id %}" 
+            class="text-dark"
+          >
+            {{ categorie }}
+          </a>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+
+  <!-- About Author -->
+  <div class="p-3 mb-4 bg-light rounded">
+    <h4 class="font-italic">About Author</h4>
+    <p class="mb-0">
+      {{ single_post.author }} writes about Python, Django, and backend engineering.
+    </p>
+  </div>
+
+  <!-- Follow Us -->
+  {% if follow_us_links %}
+  <div class="p-3 bg-light rounded">
+    <h4 class="font-italic">Follow Us</h4>
+    <ol class="list-unstyled mb-0">
+      {% for link in follow_us_links %}
+        <li>
+          <a 
+            href="{{ link.url }}" 
+            class="text-dark"
+            target="_blank"
+          >
+            {{ link.platform_name }}
+          </a>
+        </li>
+      {% endfor %}
+      {% endif %}
+    </ol>
+  </div>
+
+  </aside>
+
+  </div>
+
+</div>
+
+{% endblock %}

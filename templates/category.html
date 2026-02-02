@@ -12,7 +12,7 @@
     {% for post in posts %}
     <div class="card border-0 mb-3">
         <div class="card-body">
-            <a href="#" class="post-title-link" style="color:#333;">
+            <a href="{% url 'blogs' post.slug %}" class="post-title-link" style="color:#333;">
                 <h3>{{ post.title }}</h3>
             </a>
             <small class="text-muted">
