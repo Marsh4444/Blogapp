@@ -1,5 +1,39 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
+
+<div class="container mt-4">
+
+  <h2 class="pb-3 mb-4 font-italic border-bottom text-warning">
+    Search results for "{{ keyword }}"
+  </h2>
+
+  {% if blogs %}
+    {% for blog in blogs %}
+      <div class="card border-0 mb-3">
+        <div class="card-body">
+          <a href="{% url 'blogs' blog.slug %}" class="post-title-link" style="color:#333;">
+            <h3>{{ blog.title }}</h3>
+          </a>
+          <small class="text-muted">
+            {{ blog.created_at|timesince }} ago |
+            by {{ blog.author }} |
+            {{ blog.category }}
+          </small>
+          <p class="card-text">
+            {{ blog.short_desc|truncatewords:15 }}
+          </p>
+          <a href="{% url 'blogs' blog.slug %}" class="btn btn-sm btn-warning">
+                Read More
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="text-muted">
+      No results found. Try a different keyword.
+    </p>
+  {% endif %}
+
+</div>
 
 {% endblock %}
