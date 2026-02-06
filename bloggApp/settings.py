@@ -34,6 +34,9 @@ INSTALLED_APPS = [
     #my apps
     'blogs',
     'assignment',
+    'dashboards',
+    'crispy_forms',
+    'crispy_bootstrap4',
 
 
     #default apps
@@ -136,3 +139,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

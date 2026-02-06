@@ -1,7 +1,6 @@
 
 from django.shortcuts import redirect, render
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import logout, authenticate, login
 from .forms import RegistrationForm
 from blogs.models import  Blog
 from assignment.models import About 
@@ -57,7 +56,7 @@ def login(request):
         user = auth.authenticate(request, username=username, password=password)
         if user is not None: # checks if user exists
             auth.login(request, user)
-            return redirect("home")
+            return redirect("dashboard")  # or "home"
         else:
             messages.error(request, "Invalid username or password.")
             return redirect("login")

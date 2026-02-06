@@ -3,7 +3,7 @@ from assignment.models import FollowUS
 
 
 def get_categories(request):
-    categories = Category.objects.all()
+    categories = Category.objects.all().order_by('-created_at')
     return {'categories': categories}
 
 def get_follow_us(request):
