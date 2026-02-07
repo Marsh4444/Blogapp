@@ -29,8 +29,8 @@
           <td>{{ category.created_at }}</td>
           <td>{{ category.updated_at }}</td>
           <td>
-            <a href="#" ><i class="fa fa-edit mr-2 fa-2x"></i></a>
-            <a href="#" ><i class="fa fa-trash fa-2x text-danger"></i></a>
+            <a href="{% url 'edit_category' category.pk %}" ><i class="fa fa-edit mr-2 fa-2x"></i></a>
+            <a href="{% url 'delete_category' category.pk %}" onclick="return confirm('Are you sure you want to delete this category?')"><i class="fa fa-trash fa-2x text-danger"></i></a>
           </td>
          </tr>
         {% endfor %}
