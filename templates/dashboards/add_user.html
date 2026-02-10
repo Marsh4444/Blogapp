@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="row">
+    <!--Left Sidebar -->
+    {% include 'dashboards/sidebar.html' %}
+    <!--right Sidebar -->
+    <div class="col-md-9">
+      {% if perms.auth.add_user %}
+        <h2>Add User:</h2>
+      
+        <form action="{% url 'add_user' %}" method="POST">
+            {% csrf_token %}
+
+            {{ form|crispy }}
+
+            <button type="submit" class="btn btn-warning">Submit</button>
+            <button type="reset" class="btn btn-danger">Reset</button>
+        </form><br>
+      {% else %}
+        <div class="alert alert-danger">
+          You don't have permission to add users.
+        </div>
+      {% endif %}
+    </div>
+</div>
+
+{% endblock content %}
