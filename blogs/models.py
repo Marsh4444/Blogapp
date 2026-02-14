@@ -47,6 +47,23 @@ class Blog(models.Model):
         return self.title
 
 
+class Comment(models.Model):
+    """Comment table, contains all the fields required for creating a Comment Table"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    comment = models.TextField(max_length=500)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Comment"
+        verbose_name_plural = "Comments"
+
+
+    def __str__(self):
+        return f"Comment by {self.user.username} on {self.blog.title}"
+
+
 
     
 

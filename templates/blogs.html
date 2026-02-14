@@ -35,6 +35,48 @@
       <div class="post-content">
         {{ single_post.blog_body|linebreaks }}
       </div>
+      
+      <!-- Comments Section -->
+      <div class="comments mt-5">
+        <h3 class="mb-4">Comments ({{ comments|length }})</h3>
+        {% if comments %}
+          {% for comment in comments %}
+            <div class="mb-3">
+              <strong>{{ comment.user }}</strong> 
+              <span class="text-muted">{{ comment.created_at|timesince }} ago</span>
+              <p>{{ comment.comment }}</p>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p class="text-muted">No comments yet. Be the first to comment!</p>
+        {% endif %}
+      </div><br>
+
+      {% if user.is_authenticated %}
+      <div class="form-group">
+        
+        <form action="" method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="comment">Add a comment:</label>
+            <textarea 
+              name="comment" 
+              id="comment" 
+              class="form-control" 
+              rows="2" 
+              placeholder="Write your comment here..."
+            ></textarea>
+            <input type="submit" value="Submit Comment" class="btn btn-primary mt-2">
+          </div>
+          
+        </form>
+      </div>
+      {% else %}
+      <div class="card-body">
+        <a href="{% url 'login' %}" class="text-dark"><p> Login in to comment </p></a>
+      </div>
+      {% endif %}
+
 
     </div>
 
